@@ -6,4 +6,8 @@ COPY livepoll/* /app/
 
 RUN npm install
 
+COPY docker/docker-entrypoint.sh /usr/bin/docker-entrypoint.sh
+
+ENTRYPOINT [ "/usr/bin/docker-entrypoint.sh" ]
+
 CMD ["node", "/app/index.js"]
