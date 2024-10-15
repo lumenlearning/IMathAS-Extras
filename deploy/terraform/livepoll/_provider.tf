@@ -4,6 +4,15 @@ provider "aws" {
   assume_role {
     role_arn = "arn:aws:iam::${var.account}:role/ci-role"
   }
+
+  default_tags {
+    tags = {
+      Environment       = var.environment
+      Terraform         = "true"
+      Terraform_Project = local.service_name
+      Service           = local.service_name
+    }
+  }
 }
 
 terraform {
