@@ -62,16 +62,17 @@ jobs:
     - name: Terraform Init
       id: init
       run: terraform init -backend-config=key=${{ steps.set_env_metadata.outputs.terraform_state_key }}
-      working-directory: deploy/${{ inputs.project }}/terraform
+      working-directory: deploy/terraform/${{ inputs.project }}
 
     - name: Terraform Format
       id: fmt
       run: terraform fmt -check
+      working-directory: deploy/terraform/${{ inputs.project }}
 
     - name: Terraform Validate
       id: validate
       run: terraform validate -no-color
-      working-directory: deploy/${{ inputs.project }}/terraform
+      working-directory: deploy/terraform/${{ inputs.project }}
 
     - name: Terraform Plan
       id: plan
@@ -80,9 +81,9 @@ jobs:
           -var environment=${{ inputs.environment }} \
           -var account=${{ steps.set_env_metadata.outputs.account }} \
           -var region=${{ steps.set_env_metadata.outputs.region }}
-      working-directory: deploy/${{ inputs.project }}/terraform
+      working-directory: deploy/terraform/${{ inputs.project }}
 
     - name: Terraform Apply
       id: apply
       run: terraform apply -auto-approve -input=false terraform.tfplan
-      working-directory: deploy/${{ inputs.project }}/terraform
+      working-directory: deploy/terraform/${{ inputs.project }}
