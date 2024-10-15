@@ -3,6 +3,8 @@ FROM php:8.2-apache AS pandoc
 RUN apt-get update \
 	&& apt-get install -y --no-install-recommends --no-install-suggests \
 		pandoc \
+		jq \
+		awscli \
 	&& apt-get clean
 
 COPY pandoc/* /var/www/html/
