@@ -34,19 +34,30 @@ jobs:
     - name: Setup Terraform
       uses: hashicorp/setup-terraform@v3
 
-    - name: Terraform Init
-      id: init
+    - name: Livepoll Terraform Init
       run: terraform init -backend=false
-      working-directory: deploy/terraform
+      working-directory: deploy/terraform/livepoll
 
-    - name: Terraform Format
-      id: fmt
+    - name: Livepoll Terraform Format
       run: terraform fmt -check
+      working-directory: deploy/terraform/livepoll
 
-    - name: Terraform Validate
+    - name: Livepoll Terraform Validate
       id: validate
       run: terraform validate -no-color
-      working-directory: deploy/terraform
+      working-directory: deploy/terraform/livepoll
+    
+    - name: Pandoc Terraform Init
+      run: terraform init -backend=false
+      working-directory: deploy/terraform/pandoc
+
+    - name: Pandoc Terraform Format
+      run: terraform fmt -check
+      working-directory: deploy/terraform/pandoc
+
+    - name: Pandoc Terraform Validate
+      run: terraform validate -no-color
+      working-directory: deploy/terraform/pandoc
 
   build-and-push-livepoll:
     runs-on: ubuntu-latest
