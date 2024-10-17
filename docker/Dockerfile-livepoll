@@ -12,7 +12,7 @@ COPY livepoll/* /app/
 
 RUN npm install
 
-COPY docker/docker-entrypoint.sh /usr/bin/docker-entrypoint.sh
+COPY docker/livepoll-entrypoint.sh /usr/bin/docker-entrypoint.sh
 
 ENTRYPOINT [ "/usr/bin/docker-entrypoint.sh" ]
 
