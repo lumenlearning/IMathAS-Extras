@@ -58,3 +58,19 @@ docker run -e AWS_ACCESS_KEY_ID -e AWS_SECRET_ACCESS_KEY -e AWS_SESSION_TOKEN \
  -e ${CONTAINER_NAME} PARAMETER_STORE_PREFIX_LIST ${SSM_PREFIX} \
  -e ${CONTAINER_NAME} AWS_REGION us-west-2 \
  $ECS_CLUSTER_NAME $ECS_SERVICE_NAME
+
+if [[ "${PROJECT_NAME}" == "pandoc" ]]; then
+
+  ECS_SERVICE_NAME_CRON="${ECS_SERVICE_NAME}-cron"
+  echo -e "\n============================================================"
+  echo "  Beginning deployment to AWS Fargate environment: $ECS_CLUSTER_NAME $ECS_SERVICE_NAME_CRON"
+  echo -e "============================================================\n"
+
+  # Deploy the latest image to Fargate for the cronjob container
+  docker run -e AWS_ACCESS_KEY_ID -e AWS_SECRET_ACCESS_KEY -e AWS_SESSION_TOKEN \
+  fabfuel/ecs-deploy:1.15.0 ecs deploy --region us-west-2 --no-deregister --timeout 600 --rollback \
+  -i ${CONTAINER_NAME}-cron $AWS_CI_ACCOUNT.dkr.ecr.us-west-2.amazonaws.com/$ECR_REPOSITORY:$AWS_ECR_IMAGE_TAG-cron \
+  -e ${CONTAINER_NAME}-cron PARAMETER_STORE_PREFIX_LIST ${SSM_PREFIX} \
+  -e ${CONTAINER_NAME}-cron AWS_REGION us-west-2 \
+  $ECS_CLUSTER_NAME $ECS_SERVICE_NAME_CRON
+fi

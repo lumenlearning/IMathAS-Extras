@@ -16,12 +16,6 @@ RUN mkdir \
 		/var/www/datatmp \
 		/var/www/html/imgs
 
-COPY docker/pandoc-entrypoint.sh /usr/bin/docker-entrypoint.sh
-
-ENTRYPOINT [ "/usr/bin/docker-entrypoint.sh" ]
-
-CMD [ "apache2-foreground" ]
-
 FROM debian:12.5 AS cron
 
 RUN apt-get update \
