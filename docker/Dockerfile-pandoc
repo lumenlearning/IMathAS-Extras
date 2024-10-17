@@ -7,7 +7,7 @@ RUN apt-get update \
 		awscli \
 	&& apt-get clean
 
-COPY pandoc/* /var/www/html/
+COPY --chown=www-data:www-data pandoc/* /var/www/html/
 
 RUN mkdir \
 		/var/www/datatmp \
