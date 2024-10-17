@@ -52,4 +52,4 @@ fi
 
 # Then exec the upstream entrypoint with what's set as CMD in the Dockerfile
 # https://github.com/docker-library/php/blob/9c50f6a789b0337345934eee0d46e74d1e6dc8e2/8.2/bookworm/apache/Dockerfile
-exec /usr/local/bin/docker-entrypoint.sh "$@"
+exec /usr/local/bin/docker-php-entrypoint "$@"
