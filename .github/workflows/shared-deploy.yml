@@ -25,7 +25,7 @@ jobs:
   terraform-deploy:
     name: Terraform Deployment
     uses: ./.github/workflows/terraform-deploy.yml
-    if: ${{ inputs.project }} == "livepoll"
+    if: inputs.project == 'livepoll'
     with:
       environment: ${{ inputs.environment }}
       project: ${{ inputs.project }}
