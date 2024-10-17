@@ -8,6 +8,7 @@ RUN apt-get update \
 	&& apt-get clean
 
 COPY --chown=www-data:www-data pandoc/* /var/www/html/
+RUN rm /var/www/html/cleanup-old-files
 
 RUN mkdir \
 		/var/www/datatmp \
