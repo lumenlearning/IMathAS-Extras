@@ -1,11 +1,14 @@
-FROM php:8.2-apache
+FROM php:8.2-apache AS pandoc
 
 RUN apt-get update \
 	&& apt-get install -y --no-install-recommends --no-install-suggests \
 		pandoc \
+		jq \
+		awscli \
 	&& apt-get clean
 
-COPY pandoc/* /var/www/html/
+COPY --chown=www-data:www-data pandoc/* /var/www/html/
+RUN rm /var/www/html/cleanup-old-files
 
 RUN mkdir \
 		/var/www/datatmp \
@@ -14,3 +17,17 @@ RUN mkdir \
 		/var/www/datatmp \
 		/var/www/html/imgs
 
+FROM debian:12.5 AS cron
+
+RUN apt-get update \
+	&& apt-get install -y --no-install-suggests --no-install-recommends \
+		cron \
+	&& apt-get clean
+
+COPY pandoc/cleanup-old-files /etc/cron.daily
+
+RUN chmod 755 /etc/cron.daily/cleanup-old-files
+
+CMD ["cron", "-f"]
+
+		

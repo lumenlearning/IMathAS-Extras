@@ -1,11 +1,10 @@
-version: '3'
-
 services:
 
   pandoc:
     build:
       context: ./
       dockerfile: docker/Dockerfile-pandoc
+      target: pandoc
     expose:
       - 80
     ports:
@@ -28,7 +27,8 @@ services:
   pandoc-cron:
     build:
       context: ./
-      dockerfile: docker/Dockerfile-pandoc-cron
+      dockerfile: docker/Dockerfile-pandoc
+      target: cron
 
     volumes:
       - pandoc-temp-datatmp:/var/www/datatmp
