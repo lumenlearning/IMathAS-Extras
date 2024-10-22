@@ -171,22 +171,3 @@ jobs:
           ${{ steps.login-ecr.outputs.registry }}/${{ env.PANDOC_ECR_REPOSITORY }}:gha-build-${{ steps.set_branch_name.outputs.branch_name }}-latest
         cache-from: type=gha
         cache-to: type=gha,mode=max
-
-    - name: Docker build and push
-      uses: docker/build-push-action@v5
-      if: steps.prebuilt_check.outputs.image_exists != 0
-      env:
-        ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-      with:
-        context: .
-        file: docker/Dockerfile-pandoc
-        target: cron
-        platforms: linux/amd64
-        push: true
-        tags: |
-          ${{ steps.login-ecr.outputs.registry }}/${{ env.PANDOC_ECR_REPOSITORY }}:gha-commit-${{ github.sha }}-cron
-          ${{ steps.login-ecr.outputs.registry }}/${{ env.PANDOC_ECR_REPOSITORY }}:gha-tree-${{ steps.read_tree_hash.outputs.tree_hash }}-cron
-          ${{ steps.login-ecr.outputs.registry }}/${{ env.PANDOC_ECR_REPOSITORY }}:gha-build-${{ steps.set_branch_name.outputs.branch_name }}-${{ github.run_number }}-${{ github.run_attempt }}-cron
-          ${{ steps.login-ecr.outputs.registry }}/${{ env.PANDOC_ECR_REPOSITORY }}:gha-build-${{ steps.set_branch_name.outputs.branch_name }}-latest-cron
-        cache-from: type=gha
-        cache-to: type=gha,mode=max

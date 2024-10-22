@@ -11,10 +11,6 @@
             },
             "webapp": {
                 "ssm_prefix": "/lumen-services/us-west-2/dev/pandoc/webapp"
-            },
-            "cron": {
-                "cluster_name": "dev-pandoc",
-                "ssm_prefix": "/lumen-services/us-west-2/dev/pandoc/cron"
             }
         },
         {
@@ -28,10 +24,6 @@
             },
             "webapp": {
                 "ssm_prefix": "/lumen-services/us-west-2/staging/pandoc/webapp"
-            },
-            "cron": {
-                "cluster_name": "staging-pandoc",
-                "ssm_prefix": "/lumen-services/us-west-2/staging/pandoc/cron"
             }
         },
         {
@@ -45,10 +37,6 @@
             },
             "webapp": {
                 "ssm_prefix": "/lumen-services/us-west-2/prod/pandoc/webapp"
-            },
-            "cron": {
-                "cluster_name": "prod-pandoc",
-                "ssm_prefix": "/lumen-services/us-west-2/prod/pandoc/cron"
             }
         }
     ]
