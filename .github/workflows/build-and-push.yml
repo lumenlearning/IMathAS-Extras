@@ -161,7 +161,6 @@ jobs:
       with:
         context: .
         file: docker/Dockerfile-pandoc
-        target: pandoc
         platforms: linux/amd64
         push: true
         tags: |
