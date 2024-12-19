@@ -1,4 +1,4 @@
-name: tag-deploy
+name: tag-deploy-pandoc
 on:
   push:
     tags:
