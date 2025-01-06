@@ -5,6 +5,7 @@ RUN apt-get update \
 		pandoc \
 		jq \
 		awscli \
+                libpng-dev \
 	&& apt-get clean
 
 COPY --chown=www-data:www-data pandoc/* /var/www/html/
@@ -15,6 +16,8 @@ RUN mkdir \
 	&& chown www-data:www-data \
 		/var/www/datatmp \
 		/var/www/html/imgs
+
+RUN docker-php-ext-install gd
 
 # enable php production defaults
 RUN cp $PHP_INI_DIR/php.ini-production $PHP_INI_DIR/php.ini
