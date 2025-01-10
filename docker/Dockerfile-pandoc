@@ -1,11 +1,10 @@
-FROM php:8.3-apache
+FROM php:8.1-apache
 
 RUN apt-get update \
 	&& apt-get install -y --no-install-recommends --no-install-suggests \
 		pandoc \
 		jq \
 		awscli \
-                libpng-dev \
 	&& apt-get clean
 
 COPY --chown=www-data:www-data pandoc/* /var/www/html/
@@ -17,7 +16,10 @@ RUN mkdir \
 		/var/www/datatmp \
 		/var/www/html/imgs
 
-RUN docker-php-ext-install gd
+# Install PHP extensions: gd
+RUN apt-get install -y libfreetype6-dev libjpeg62-turbo-dev libpng-dev \
+        && docker-php-ext-configure gd --with-freetype=/usr/include/ --with-jpeg=/usr/include/ \
+        && docker-php-ext-install gd
 
 # enable php production defaults
 RUN cp $PHP_INI_DIR/php.ini-production $PHP_INI_DIR/php.ini
