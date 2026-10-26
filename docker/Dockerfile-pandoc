@@ -1,6 +1,7 @@
-FROM php:8.1-apache
+FROM php:8.2-apache@sha256:1dcd13aa67697127a140a7d303ab955c923098c39d525ecd728f2e8afb4d1546
 
 RUN apt-get update \
+	&& apt-get upgrade -y \
 	&& apt-get install -y --no-install-recommends --no-install-suggests \
 		pandoc \
 		jq \
