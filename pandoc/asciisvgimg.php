@@ -70,6 +70,8 @@ var $extendedcolors = ['aliceblue'=>[240,248,255], 'antiquewhite'=>[250,235,215]
 var $dodouble = false;
 
 var $AScom;
+var $isinit = false;
+var $colors = array();
 
 function __construct() {
 	$this->usegd2 = function_exists('imagesetthickness');
