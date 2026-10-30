@@ -1,5 +1,6 @@
 <?php
-ini_set('display_errors', 1);
+// Never print errors into the response; they corrupt the .docx download. They are still logged.
+ini_set('display_errors', 0);
 error_reporting(E_ALL);
 if (empty($_POST['html'])) {
 	echo "No html";
