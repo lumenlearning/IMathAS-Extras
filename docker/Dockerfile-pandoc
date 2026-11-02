@@ -17,10 +17,10 @@ RUN mkdir \
 		/var/www/datatmp \
 		/var/www/html/imgs
 
-# Install PHP extensions: gd
-RUN apt-get install -y libfreetype6-dev libjpeg62-turbo-dev libpng-dev \
+# Install PHP extensions: gd, and zip (html2docx.php adds table borders to the .docx)
+RUN apt-get install -y libfreetype6-dev libjpeg62-turbo-dev libpng-dev libzip-dev \
         && docker-php-ext-configure gd --with-freetype=/usr/include/ --with-jpeg=/usr/include/ \
-        && docker-php-ext-install gd
+        && docker-php-ext-install gd zip
 
 # enable php production defaults
 RUN cp $PHP_INI_DIR/php.ini-production $PHP_INI_DIR/php.ini

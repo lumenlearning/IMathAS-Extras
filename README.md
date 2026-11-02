@@ -9,6 +9,9 @@ Note:
 * the imgs subdirectory needs to be writable by the web server.
 * the ../datatmp/ directory needs to be writable by the web server.
 * you do not need uniconvertor. That was an experiment that didn't work.
+* PHP needs the zip extension: tables with the `table-borders` class get cell
+  borders, which `docxtableborders.php` adds to the .docx after pandoc writes it.
+  Without zip, those tables are borderless.
 
 ## livepoll server
 This sets up a websocket server to enable the LivePoll feature in IMathAS.
