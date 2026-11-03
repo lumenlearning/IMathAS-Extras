@@ -1,5 +1,6 @@
 <?php
-ini_set('display_errors', 1);
+// Never print errors into the response; they corrupt the .docx download. They are still logged.
+ini_set('display_errors', 0);
 error_reporting(E_ALL);
 if (empty($_POST['html'])) {
 	echo "No html";
@@ -115,7 +116,10 @@ if (isset($_POST['convertsvg'])) {
 	exec('/usr/bin/pandoc '.$filename.'.html -f html+tex_math_double_backslash -o '.$filename.'.tex');
 	exec('/usr/bin/pandoc '.$filename.'.tex --filter=pagebreak.php -o '.$filename.'.docx');
 } else {
-	exec('/usr/bin/pandoc '.$filename.'.html -f html+tex_math_double_backslash --filter=pagebreak.php -o '.$filename.'.docx');
+	exec('/usr/bin/pandoc '.$filename.'.html -f html+tex_math_double_backslash --filter=pagebreak.php --filter=tableborders.php -o '.$filename.'.docx');
+	// Pandoc ignores HTML table borders; add them to the tables marked by tableborders.php.
+	require_once("docxtableborders.php");
+	addDocxTableBorders($filename.'.docx');
 }
 	
 header("Content-Type: application/vnd.openxmlformats-officedocument.wordprocessingml.document");
